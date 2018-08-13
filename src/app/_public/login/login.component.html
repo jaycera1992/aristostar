@@ -1,0 +1,74 @@
+<body class="hold-transition login-page">
+    <div class="custom-login-box">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>Splash</b>Tours</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <div class="box-body">
+            <div class="alert alert-danger alert-dismissible" *ngIf="userNotExist">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Username / Password you've entered are incorrect.
+            </div>
+        </div>
+            <form class="form mt-4" #f="ngForm" role="form" novalidate (ngSubmit)="login(f.value)">
+            <div class="form-group has-feedback">
+                <input type="email" class="form-control" placeholder="Email" name="email" #email="ngModel" [ngModel]="auth.email" class="form-control" matInput required minlength="1" maxlength="40">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" placeholder="Password" name="password" class="form-control" matInput [ngModel]="auth.password" required #password="ngModel" minlength="1" maxlength="40">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-4 pull-right">
+                    <button class="btn btn-primary btn-block btn-flat" *ngIf="loadingLogin" [disabled]="loadingLogin" type="submit"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></button>
+                    <button class="btn btn-primary btn-block btn-flat" *ngIf="!loadingLogin" [disabled]="f.invalid" type="submit">Sign In</button>
+                </div>
+                <!-- /.col -->
+            </div>
+            </form>
+            <!-- /.social-auth-links -->
+
+            <a target="_blank" href="{{urlLink}}">
+                Visit our website
+            </a><br/>
+            <a href="#">I forgot my password</a>
+            
+        <div class="social-auth-links text-center">
+                <hr>
+                
+                <div class="social">
+                    <a href="{{twitterLink}}" target="_blank" class="btn btn-just-icon btn-round btn-twitter">
+                            <i class="fa fa-twitter"> 
+                                <div class="ripple-container"></div>
+                            </i>
+                        </a>
+                    <a href="{{fbLink}}" target="_blank" class="btn btn-just-icon btn-round btn-facebook">
+                        <i class="fa fa-facebook"> 
+                            <div class="ripple-container"></div>
+                        </i>
+                    </a>
+                    <a href="{{instaLink}}" target="_blank" class="btn btn-just-icon btn-round btn-primary">
+                        <i class="fa fa-instagram"> 
+                            <div class="ripple-container"></div>
+                        </i>
+                    </a>
+                    <a href="{{utubeLink}}" target="_blank" class="btn btn-just-icon btn-round btn-danger">
+                            <i class="fa fa-youtube-play"> 
+                                <div class="ripple-container"></div>
+                            </i>
+                        </a>
+                    <a href="{{tripadLink}}" target="_blank" class="btn btn-just-icon btn-round btn-success">
+                        <i class="fa fa-tripadvisor"> 
+                            <div class="ripple-container"></div>
+                        </i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /.login-box-body -->
+    </div>    
+</body>

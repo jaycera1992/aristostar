@@ -1,0 +1,92 @@
+<div class="row" *ngIf="successMessage">
+    <div class="col-md-4">
+        <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Successfully added company, Redirecting to Company list.
+            </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Company</h3>
+            </div>
+            <form role="form" #f="ngForm" novalidate (ngSubmit)="submitCompany(f.value)">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Company Name*" required name="companyName" #companyName="ngModel" [ngModel]="company.companyName">
+                            </div>
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Short Name*" required name="shortName" #shortName="ngModel" [ngModel]="company.shortName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Company Address*" required name="companyAddress" #companyAddress="ngModel" [ngModel]="company.companyAddress">
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" disabled value="+971">
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control" placeholder="Ex. 56441233*" name="landline" #landline="ngModel" [ngModel]="company.landline">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Commission*" required name="commission" #commission="ngModel" [ngModel]="company.commission">
+                            </div>
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Website" name="website" #website="ngModel" [ngModel]="company.website">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Representative Name*" required name="repName" #repName="ngModel" [ngModel]="company.repName">
+                            </div>
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Representative Email*" required name="repEmail" #repEmail="ngModel" [ngModel]="company.repEmail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Representative Position*" required name="repPosition" #repPosition="ngModel" [ngModel]="company.repPosition">
+                            </div>
+                            <div class="col-xs-6">
+                                <input class="form-control" placeholder="Representative Phone*" required name="repPhone" #repPhone="ngModel" [ngModel]="company.repPhone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p-calendar placeholder="Contract Date*" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" dateFormat="yy/m/d" name="contractDate" #contractDate="ngModel" [ngModel]="company.contractDate"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-flat btn-danger pull-left" *ngIf="!loadingSave" type="submit" (click)="cancelAddCompany()"><strong>Cancel</strong></button>
+                    <button class="btn btn-flat btn-success pull-right" *ngIf="!loadingSave" [disabled]="f.invalid" type="submit"><strong>Submit</strong></button>
+                    <button class="btn btn-flat btn-success pull-right" *ngIf="loadingSave" [disabled]="loadingSave" type="submit"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i> Saving</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <app-company-list [switchCase]="2" [companyArr]="companyArr" [p]="p" [total]="total" [totalCompany]="totalCompany" (showEditForm)="fromEmit($event)"></app-company-list>
+    </div>
+</div>
