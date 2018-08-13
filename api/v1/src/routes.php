@@ -54,6 +54,7 @@ $app->group('/secure', function () {
         $this->map(['GET'], '/total/staff', 'UserController:getTotalStaff' );
 
         $this->group('/company', function () {
+            $this->map(['GET'], '/get-reference', 'CompanyController:getCompanyReference' );
             $this->map(['POST'], '/add', 'CompanyController:addCompany' );
             $this->map(['GET'], '/{offset}', 'CompanyController:getCompany' );
             $this->map(['DELETE'], '/{delete_company_id}', 'CompanyController:deleteCompany');
@@ -64,5 +65,10 @@ $app->group('/secure', function () {
                 $this->map(['GET'], '/active', 'CompanyController:getTotalActiveCompany' );
             });
         }); 
+
+        $this->group('/employee', function () {
+            $this->map(['POST'], '/add', 'EmployeeController:addEmployee' );
+            $this->map(['GET'], '/{offset}', 'EmployeeController:getEmployee' );
+        });     
     });
 })->add($jwt);

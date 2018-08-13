@@ -33,6 +33,40 @@ class CompanyController
      * @param $response
      * @return $response
      */
+
+    public function getCompanyReference($request, $response, $args)
+    {   
+        $currentUserId  = $args['user_id'];
+
+        if(empty($currentUserId)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false
+            ));
+        }
+
+        $result = $this->company->getCompanyReference();
+
+        foreach ($result as $key => $value) {
+            if ($result[$key]['company_name']) {
+                $result[$key]['company_name'] =  html_entity_decode($result[$key]['company_name'], ENT_QUOTES);
+            }
+        }
+
+        
+        if (empty($result)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false,
+            ));
+        }
+  
+        $output = array(
+            'success' => true,
+            'data'    => $result,
+        );
+
+        return $response->withStatus(200)->withJson($output);
+    }
+
     public function getCompany($request, $response, $args)
     {   
         $currentUserId  = $args['user_id'];

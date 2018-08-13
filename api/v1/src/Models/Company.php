@@ -101,6 +101,34 @@ class Company
         }
     }
 
+    public function getCompanyReference() {
+        try {
+            $sql = "
+                SELECT
+                    company_id, company_name
+                FROM
+                    s_company
+                ORDER BY
+                    company_name ASC
+            ";
+
+            $statement = $this->db->prepare($sql);
+
+            $statement->execute();
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+            $results = $statement->fetchAll();
+            
+            if (count($results) >= 1) {
+              return $results;
+            } else {
+              return false;
+            }
+        } catch (PDOException $e) {
+            return $e;
+        }
+    }
+
     public function deleteCompany($userId, $deletedCompanyId) {
         try {
             $sql = "

@@ -79,8 +79,8 @@ $container['UserController'] = function($c) {
     return new \App\Controllers\UserController($c->get('User'), $c->get('CommonFunction'), $c->get('PasswordHash'));
 };
 
-$container['BookingController'] = function($c) {
-    return new \App\Controllers\BookingController($c->get('Booking'), $c->get('CommonFunction'), $c->get('PasswordHash'));
+$container['EmployeeController'] = function($c) {
+    return new \App\Controllers\EmployeeController($c->get('Employee'), $c->get('CommonFunction'), $c->get('PasswordHash'));
 };
 
 $container['CompanyController'] = function($c) {
@@ -96,8 +96,8 @@ $container['User'] = function ($container) {
     return new App\Models\User($container->get('db'));
 };
 
-$container['Booking'] = function ($container) {
-    return new App\Models\Booking($container->get('db'));
+$container['Employee'] = function ($container) {
+    return new App\Models\Employee($container->get('db'));
 };
 
 $container['Company'] = function ($container) {

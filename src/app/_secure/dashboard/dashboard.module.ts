@@ -10,7 +10,8 @@ const routes: Routes = [
   {
     path: '', canActivate: [AuthGuard], component: DashboardComponent, children: [
       { path: 'users', loadChildren: './../users/users.module#UsersModule' },
-      { path: 'company', loadChildren: './../company/company.module#CompanyModule' }
+      { path: 'company', loadChildren: './../company/company.module#CompanyModule' },
+      { path: 'employee', loadChildren: './../employee/employee.module#EmployeeModule' }
     ]
   }
 ];
