@@ -49,6 +49,6 @@
 <span [ngSwitch]="crudTransaction" class="user-switch-custom">
     <app-company-list *ngSwitchCase="1" [switchCase]="1" [companyArr]="companyArr" [p]="p" [total]="total" [totalCompany]="totalCompany" (showEditForm)="fromEmit($event)"></app-company-list>
     <app-company-add *ngSwitchCase="2" [switchCase]="2" [companyArr]="companyArr" [p]="p" [total]="total" [totalCompany]="totalCompany" (showEditForm)="fromEmit($event)"></app-company-add>
-
+    <app-company-update *ngSwitchCase="3" [switchCase]="3" [companyArr]="companyArr" [p]="p" [total]="total" [totalCompany]="totalCompany" [selectedItem]="selectedItem" [selectedIndex]="selectedIndex" (showEditForm)="fromEmit($event)"></app-company-update>
     <pagination-controls *ngSwitchCase="1" id="company-pagination" (pageChange)="pageChanged($event)" maxSize=5 previousLabel="" nextLabel=""></pagination-controls>
 </span>

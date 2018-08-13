@@ -18,17 +18,15 @@ class Company
     }
 
     public function addCompany($companyId, $companyName, $shortName , $companyAddress, 
-            $landline, $commission, $website, $contractDate, $repPosition, $repName, $repPhone, $repEmail, $currentUserId) {
+            $landline, $website, $currentUserId) {
         
         try {
             $sql = "
                 INSERT INTO
                     s_company
-                    (company_id, company_name, short_name, phone, commission, company_address, website, contract_date, representative_position, 
-                        representative_name, representative_phone, representative_email, date_created, created_user_id)
+                    (company_id, company_name, short_name, phone, company_address, website, date_created, created_user_id)
                 VALUES
-                ('$companyId', '$companyName', '$shortName', '$landline', '$commission', '$companyAddress', '$website', '$contractDate', '$repPosition'
-                , '$repName', '$repPhone', '$repEmail', now(), '$currentUserId');
+                ('$companyId', '$companyName', '$shortName', '$landline', '$companyAddress', '$website', now(), '$currentUserId');
             ";
  
             $statement = $this->db->prepare($sql);
@@ -43,13 +41,41 @@ class Company
         }
     }
 
+    public function updateCompany($companyId, $companyName, $shortName , $companyAddress, $landline, $website, $updatedUserId) {
+        try {
+            $sql = "
+                    UPDATE
+                        s_company
+                    SET
+                        `company_name` = '$companyName',
+                        `short_name` = '$shortName',
+                        `phone` = '$landline',
+                        `company_address` = '$companyAddress',
+                        `website` = '$website',
+                        `updated_user_id` = '$updatedUserId',
+                        `date_updated` = NOW()
+                    WHERE
+                        `company_id` = '$companyId'
+                ";
+
+            $statement = $this->db->prepare($sql);
+
+            if (!$statement->execute()) {
+                return false;
+            }
+
+            return true;
+
+        } catch (PDOException $e) {
+            return $e;
+        }
+    }
+
     public function getCompany($limit, $offset) {
         try {
             $sql = "
                 SELECT
-                    company_id, company_name, short_name, phone, commission, company_address, website,
-                    contract_date, representative_name, representative_email, representative_position,
-                    representative_phone, is_deleted, date_created, created_user_id
+                    company_id, company_name, short_name, phone, company_address, website, is_deleted, date_created, created_user_id
                 FROM
                     s_company
                 ORDER BY

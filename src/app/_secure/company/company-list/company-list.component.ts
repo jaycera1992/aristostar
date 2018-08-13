@@ -1,48 +1,53 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UsersService } from './../../_service/users.service';
+import { CompanyService } from './../../../_service/company.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  selector: 'app-company-list',
+  templateUrl: './company-list.component.html',
+  styleUrls: ['./company-list.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class CompanyListComponent implements OnInit {
 
   @Output() showEditForm = new EventEmitter<any>();
 
-  @Input() userArr = [];
+  @Input() companyArr = [];
   @Input() p: number;
   @Input() switchCase: number;
   @Input() total: number;
-  @Input() totalUsers: number;
+  @Input() totalCompany: number;
 
-  userToBeDeletedId : any;
+  companyToBeDeletedId : any;
   loadingDelete = false;
   hideHttpServerError = false;
   successMessage = false;
 
   constructor(
     private _router: Router,
-    private _usersService: UsersService,
+    private _companyService: CompanyService,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
-  addUser() {
+  addCompany() {
     this.showEditForm.emit({ 'trigger': 2 });
   }
 
-  setDeleteStaff(userId) {
-    this.userToBeDeletedId = userId;
+  setDeletedCompany(companyId) {
+    this.companyToBeDeletedId = companyId;
   }
 
-  deleteStaff() {
+  editCompany(data: any, index: any) {
+    this.showEditForm.emit({ 'trigger': 3, 'selectedItem': data, 'selectedIndex': index});
+  }
+
+  deleteCompany() {
     this.loadingDelete = true;
     
-    this._usersService.deleteUser(this.userToBeDeletedId).subscribe(
+    this._companyService.deleteCompany(this.companyToBeDeletedId).subscribe(
       response => {
         if (response.success === true) {
           this.loadingDelete = false;
@@ -77,7 +82,4 @@ export class UsersListComponent implements OnInit {
     }, 3000);
   }
 
-  editUser(data: any, index: any) {
-    this.showEditForm.emit({ 'trigger': 3, 'selectedItem': data, 'selectedIndex': index});
-  }
 }

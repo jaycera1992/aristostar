@@ -2,8 +2,8 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectItem } from 'primeng/api';
 
-import { User } from './../../_class/user';
-import { UsersService } from './../../_service/users.service';
+import { User } from './../../../_class/user';
+import { UsersService } from './../../../_service/users.service';
 
 @Component({
   selector: 'app-users-update',
@@ -41,9 +41,8 @@ export class UsersUpdateComponent implements OnInit {
 
     this.adminRoles = [
       { value: '1', label: 'Administrator' },
-      { value: '2', label: 'Captain' },
-      { value: '3', label: 'Staff'},
-      { value: '4', label: 'Company'}
+      { value: '2', label: 'Company' },
+      { value: '3', label: 'Staff'}
     ];
 
     if (this.selectedItem.is_deleted == 0) {

@@ -7,7 +7,6 @@ import { Router, RouterModule } from '@angular/router';
 
 import { HttpErrorComponent } from './../../_public/http-error/http-error.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MaterialModule } from './../../_module/material/material.module';
 import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     HttpClientModule,
     RouterModule,
     NgxPaginationModule,
-    MaterialModule,
     InputSwitchModule
   ],
   declarations: [

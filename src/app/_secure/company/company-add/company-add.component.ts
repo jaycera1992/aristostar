@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Company } from './../../_class/company';
-import { CompanyService } from './../../_service/company.service';
+import { Company } from './../../../_class/company';
+import { CompanyService } from './../../../_service/company.service';
 
 @Component({
   selector: 'app-company-add',
@@ -36,23 +36,12 @@ export class CompanyAddComponent implements OnInit {
       shortName: '',
       companyAddress: '',
       landline: '',
-      commission: '',
-      website: '',
-      contractDate: '',
-      repName: '',
-      repPosition: '',
-      repPhone: '',
-      repEmail: ''
+      website: ''
     };
   }
 
   submitCompany(formData: Company) {
     this.loadingSave = true;
-
-    let dateContact: any;
-    dateContact = formData.contractDate;
-
-    formData.contractDate = dateContact.getFullYear() + '/' + (dateContact.getMonth() + 1) + '/' + dateContact.getDate();
 
     this._companyService.addCompany(formData).subscribe(
       response => {

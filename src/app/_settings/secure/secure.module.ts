@@ -10,7 +10,7 @@ import { LoginGuard } from './../../_common/login.guard';
 const SECURE_ROUTES: Routes = [
     {
         path: '', component: SecureComponent, canActivate: [AuthGuard], children: [
-            { path: 'dashboard', canActivate: [LoginGuard], loadChildren: './../../_module/dashboard/dashboard.module#DashboardModule' },
+            { path: 'dashboard', canActivate: [LoginGuard], loadChildren: './../../_secure/dashboard/dashboard.module#DashboardModule' },
         ]
     }
 ];

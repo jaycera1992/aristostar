@@ -3,10 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MaterialModule } from './../../_module/material/material.module';
-import { SharedComponentModule } from './../../_module/shared-component/shared-component.module';
+import { SharedComponentModule } from './../../../_module/shared-component/shared-component.module';
 
-import { LoginComponent } from './../../_public/login/login.component';
+import { LoginComponent } from './../login.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent }
@@ -16,16 +15,12 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule,
     RouterModule.forChild(routes),
 
     SharedComponentModule
   ],
   declarations: [
     LoginComponent
-  ],
-  exports: [
-    MaterialModule
   ]
 })
 export class LoginModule { }

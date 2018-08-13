@@ -19,13 +19,6 @@ export class LoginComponent implements OnInit {
   userNotExist = false;
   hideHttpServerError = false;
 
-  urlLink = AppSettings.URL_WEBSITE;
-  fbLink = AppSettings.FB_URL;
-  twitterLink = AppSettings.TWITTER_URL;
-  instaLink = AppSettings.INSTA_URL;
-  utubeLink = AppSettings.UTUBE_URL;
-  tripadLink = AppSettings.TRIPAD_URL;
-
   constructor(
     private _router: Router,
     private _authService: AuthService
@@ -48,7 +41,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user_id', response.user_id);
           localStorage.setItem('token', response.token);
 
-          this._router.navigate(['/dashboard/main']);
+          this._router.navigate(['/dashboard/users']);
 
         } else {
           this.loadingLogin = false;

@@ -3,13 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MaterialModule } from './../../_module/material/material.module';
 import { SharedComponentModule } from './../../_module/shared-component/shared-component.module';
 
-import { UsersComponent } from './../../_secure/users/users.component';
-import { UsersListComponent } from './../../_secure/users-list/users-list.component';
-import { UsersAddComponent } from './../../_secure/users-add/users-add.component';
-import { UsersUpdateComponent } from './../../_secure/users-update/users-update.component';
+import { UsersComponent } from './users.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { UsersAddComponent } from './users-add/users-add.component';
+import { UsersUpdateComponent } from './users-update/users-update.component';
 import { DropdownModule } from 'primeng/dropdown';
 
 import { AuthGuard } from './../../_common/auth.guard';
@@ -26,7 +25,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule,
     RouterModule.forChild(routes),
     DropdownModule,
 

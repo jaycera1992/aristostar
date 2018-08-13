@@ -16,7 +16,7 @@ var auth_guard_1 = require("./_common/auth.guard");
 var secure_1 = require("./_settings/secure");
 var public_1 = require("./_settings/public");
 var routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full', loadChildren: './_module/login/login.module#LoginModule' },
+    { path: '', redirectTo: 'login', pathMatch: 'full', loadChildren: './_public/login/login/login.module#LoginModule' },
     { path: '', component: public_1.PublicComponent, data: { title: 'Public Views' }, children: public_1.PUBLIC_ROUTES },
     { path: '', component: secure_1.SecureComponent, canActivate: [auth_guard_1.AuthGuard], data: { title: 'Secure Views' }, children: secure_1.SECURE_ROUTES },
     { path: '**', redirectTo: 'login' }

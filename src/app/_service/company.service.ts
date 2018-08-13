@@ -30,6 +30,16 @@ export class CompanyService {
       .map((response: Response) => response.json());
   }
 
+  updateCompany(data: any, updateId: any) {
+    let params = 'data=' + encodeURIComponent(JSON.stringify(data));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Authorization', localStorage.getItem('token'));
+
+    return this._http.put(this._url + '/' + localStorage.getItem('user_id') + '/company/' + updateId, params, { headers: headers })
+      .map((response: Response) => response.json());
+  }
+
   deleteCompany(id: number) {
     const headers = new Headers();
     headers.append('Authorization', localStorage.getItem('token'));

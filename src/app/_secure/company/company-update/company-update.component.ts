@@ -1,71 +1,66 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { SelectItem } from 'primeng/api';
 
-import { User } from './../../_class/user';
-import { UsersService } from './../../_service/users.service';
+import { Company } from './../../../_class/company';
+import { CompanyService } from './../../../_service/company.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-users-add',
-  templateUrl: './users-add.component.html',
-  styleUrls: ['./users-add.component.css']
+  selector: 'app-company-update',
+  templateUrl: './company-update.component.html',
+  styleUrls: ['./company-update.component.css']
 })
-export class UsersAddComponent implements OnInit {
-
-  adminRoles: SelectItem[];
+export class CompanyUpdateComponent implements OnInit {
 
   @Output() showEditForm = new EventEmitter<any>();
 
-  @Input() userArr = [];
+  @Input() selectedItem : any;
+  @Input() selectedIndex: number;
+  @Input() companyArr = [];
   @Input() p: number;
   @Input() switchCase: number;
   @Input() total: number;
-  @Input() totalUsers: number;
+  @Input() totalCompany: number;
 
-  public user: User;
+  public company: Company;
 
   hideHttpServerError = false;
   loadingSave = false;
   successMessage = false;
+  isActive: any;
+  checked: any;
 
   constructor(
     private _router: Router,
-    private _usersService: UsersService,
+    private _companyService: CompanyService,
   ) { }
 
   ngOnInit() {
-    this.adminRoles = [
-      { value: '1', label: 'Administrator' },
-      { value: '2', label: 'Captain' },
-      { value: '3', label: 'Staff'},
-      { value: '4', label: 'Company'}
-    ];
 
-    this.user = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      adminRole: '',
-      mobileNumber: '',
-      designation: '',
-      isActive: ''
+    const phone = this.selectedItem.phone.replace('+971', '');
+
+    this.company = {
+      companyName: this.selectedItem.company_name,
+      shortName: this.selectedItem.short_name,
+      companyAddress: this.selectedItem.company_address,
+      landline: phone,
+      website: this.selectedItem.website
     };
   }
 
-  cancelAddStaff() {
+  cancelAddCompany() {
     this.showEditForm.emit({ 'trigger': 1 });
   }
 
-  submitStaff(formData: User) {
+  submitCompany(formData: Company) {
     this.loadingSave = true;
-    this._usersService.addUsers(formData).subscribe(
+  
+    this._companyService.updateCompany(formData, this.selectedItem.company_id).subscribe(
       response => {
         if (response.success === true) {
           this.successMessage = true;
           setTimeout(() => {
-             this.showEditForm.emit({ 'trigger': 4 });
+            this.showEditForm.emit({ 'trigger': 4 });
           }, 3000);
         } else {
           this.loadingSave = false;

@@ -53,9 +53,7 @@ class CompanyController
         foreach ($result as $key => $value) {
             if ($result[$key]['date_created']) {
                 $old_date_timestamp           = strtotime($value['date_created']);
-                $result[$key]['date_created'] = date('F d Y', $old_date_timestamp);
-                $old_date_timestamp1           = strtotime($value['contract_date']);
-                $result[$key]['contract_date'] = date('F d Y', $old_date_timestamp1);
+                $result[$key]['date_created'] = date('F d Y', $old_date_timestamp); 
                 $result[$key]['company_name'] =  html_entity_decode($result[$key]['company_name'], ENT_QUOTES);
                 $result[$key]['company_address'] =  html_entity_decode($result[$key]['company_address'], ENT_QUOTES);
             }
@@ -93,17 +91,9 @@ class CompanyController
         $shortName      = (!empty($data->shortName)) ? $data->shortName : null;
         $companyAddress = (!empty($data->companyAddress)) ? $data->companyAddress : null;
         $landline       = (!empty($data->landline)) ? $data->landline : null;
-        $commission     = (!empty($data->commission)) ? $data->commission : null;
         $website        = (!empty($data->website)) ? $data->website : null;
-        $contractDate   = (!empty($data->contractDate)) ? $data->contractDate : null;
-        $repPosition    = (!empty($data->repPosition)) ? $data->repPosition : null;
-        $repName        = (!empty($data->repName)) ? $data->repName : null;
-        $repPhone       = (!empty($data->repPhone)) ? $data->repPhone : null;
-        $repEmail       = (!empty($data->repEmail)) ? $data->repEmail : null;
         
-        if (v::nullType()->validate($companyName) || v::nullType()->validate($shortName) || v::nullType()->validate($companyAddress) || v::nullType()->validate($commission)
-          || v::nullType()->validate($contractDate) || v::nullType()->validate($repEmail) || !v::email()->validate($repEmail) || v::nullType()->validate($repPhone) 
-          || v::nullType()->validate($repName)) {
+        if (v::nullType()->validate($companyName) || v::nullType()->validate($shortName) || v::nullType()->validate($companyAddress) || v::nullType()->validate($landline) || v::nullType()->validate($website)) {
 
             return $response->withStatus(200)->withJson(array(
             'success' => false,
@@ -118,12 +108,60 @@ class CompanyController
         $landline      = '+971' . $landline;
 
         $result = $this->company->addCompany($companyId, $companyName, $shortName , $companyAddress, 
-                $landline, $commission, $website, $contractDate, $repPosition, $repName, $repPhone, $repEmail, $currentUserId);
+                $landline, $website, $currentUserId);
 
         if (empty($result)) {
             return $response->withStatus(200)->withJson(array(
                 'success' => false,
                 'error' => 'Company Creation'
+            ));
+        }
+  
+        $output = array(
+            'success' => true,
+            'data'    => $result,
+        );
+
+        return $response->withStatus(200)->withJson($output);
+    }
+
+    public function updateCompany($request, $response, $args) {
+
+        $currentUserId = (!empty($args['user_id'])) ? $args['user_id'] : null;
+        $updateCompanyId = (!empty($args['update_company_id'])) ? $args['update_company_id'] : null;
+
+        $data = $request->getParam("data");
+        $data = (!empty($data)) ? json_decode($data) : null;
+
+        if (empty($data) || empty($currentUserId) || empty($updateCompanyId)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false
+            ));
+        }
+
+        $companyName    = (!empty($data->companyName)) ? $data->companyName : null;
+        $shortName      = (!empty($data->shortName)) ? $data->shortName : null;
+        $companyAddress = (!empty($data->companyAddress)) ? $data->companyAddress : null;
+        $landline       = (!empty($data->landline)) ? $data->landline : null;
+        $website        = (!empty($data->website)) ? $data->website : null;
+
+        if (v::nullType()->validate($companyName) || v::nullType()->validate($shortName) || v::nullType()->validate($companyAddress) || v::nullType()->validate($landline) || v::nullType()->validate($website)) {
+
+            return $response->withStatus(200)->withJson(array(
+            'success' => false,
+            'valid'   => false
+            ));
+        }
+
+        $landline = '+971' . $landline;
+
+        $result = $this->company->updateCompany($updateCompanyId, $companyName, $shortName , $companyAddress, 
+            $landline, $website, $currentUserId);
+
+        if (empty($result)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false,
+                'error' => 'Company updating'
             ));
         }
   

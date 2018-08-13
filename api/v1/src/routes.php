@@ -57,6 +57,7 @@ $app->group('/secure', function () {
             $this->map(['POST'], '/add', 'CompanyController:addCompany' );
             $this->map(['GET'], '/{offset}', 'CompanyController:getCompany' );
             $this->map(['DELETE'], '/{delete_company_id}', 'CompanyController:deleteCompany');
+            $this->map(['PUT'], '/{update_company_id}', 'CompanyController:updateCompany');
             $this->group('/total', function () {
                 $this->map(['GET'], '/total', 'CompanyController:getTotalCompany' );
                 $this->map(['GET'], '/deleted', 'CompanyController:getTotalDeletedCompany' );
