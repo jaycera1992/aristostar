@@ -44,7 +44,8 @@ export class EmployeeAddComponent implements OnInit {
       lastName: '',
       email: '',
       designation: '',
-      company: ''
+      company: '',
+      isActive: ''
     };
   }
 

@@ -68,6 +68,8 @@ $app->group('/secure', function () {
 
         $this->group('/employee', function () {
             $this->map(['POST'], '/add', 'EmployeeController:addEmployee' );
+            $this->map(['PUT'], '/{update_employee_id}', 'EmployeeController:updateEmployee');
+            $this->map(['DELETE'], '/{delete_employee_id}', 'EmployeeController:deleteEmployee');
             $this->map(['GET'], '/{offset}', 'EmployeeController:getEmployee' );
         });     
     });

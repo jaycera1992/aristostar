@@ -39,12 +39,21 @@ export class CompanyUpdateComponent implements OnInit {
 
     const phone = this.selectedItem.phone.replace('+971', '');
 
+    if (this.selectedItem.is_deleted == 0) {
+      this.isActive = 'Active';
+      this.checked = true;
+    } else {
+      this.isActive = 'Inactive';
+      this.checked = false;
+    }
+
     this.company = {
       companyName: this.selectedItem.company_name,
       shortName: this.selectedItem.short_name,
       companyAddress: this.selectedItem.company_address,
       landline: phone,
-      website: this.selectedItem.website
+      website: this.selectedItem.website,
+      isActive: this.selectedItem.is_deleted
     };
   }
 
@@ -54,7 +63,13 @@ export class CompanyUpdateComponent implements OnInit {
 
   submitCompany(formData: Company) {
     this.loadingSave = true;
-  
+    
+    if (this.checked) {
+      formData.isActive = 0;
+    } else {
+      formData.isActive = 1;
+    }
+    
     this._companyService.updateCompany(formData, this.selectedItem.company_id).subscribe(
       response => {
         if (response.success === true) {
@@ -82,6 +97,17 @@ export class CompanyUpdateComponent implements OnInit {
         }
       }
     );
+  }
+
+  changeStatus() {
+    if (this.checked) {
+      this.isActive = 'Inactive';
+      this.company.isActive = 1;
+    } else {
+      this.isActive = 'Active';
+      this.company.isActive = 0;
+    }
+
   }
 
 }

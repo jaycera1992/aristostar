@@ -5,6 +5,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
+import { MaterialModule } from './../../_module/material/material.module';
 import { HttpErrorComponent } from './../../_public/http-error/http-error.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -17,14 +18,16 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     HttpClientModule,
     RouterModule,
     NgxPaginationModule,
-    InputSwitchModule
+    InputSwitchModule,
+    MaterialModule
   ],
   declarations: [
     HttpErrorComponent
   ],
   exports: [
     HttpErrorComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MaterialModule
   ]
 })
 export class SharedComponentModule { }

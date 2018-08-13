@@ -30,7 +30,7 @@ class User
                 GROUP BY
                     user_id
             ";
-
+            
             $statement = $this->db->prepare($sql);
 
             $statement->execute();

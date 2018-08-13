@@ -39,12 +39,43 @@ class Employee
             return $e;
         }
     }
+    
+    public function updateEmployee($employeeId, $firstName, $lastName , $email, $designation, $companyId, $isActive, $updatedUserId) {
+        try {
+            $sql = "
+                    UPDATE
+                        s_employee
+                    SET
+                        `first_name` = '$firstName',
+                        `last_name` = '$lastName',
+                        `email_address` = '$email',
+                        `designation` = '$designation',
+                        `company_id` = '$companyId',
+                        `is_deleted` = '$isActive',
+                        `updated_user_id` = '$updatedUserId',
+                        `date_updated` = NOW()
+                    WHERE
+                        `employee_id` = '$employeeId'
+                ";
+
+            $statement = $this->db->prepare($sql);
+
+            if (!$statement->execute()) {
+                return false;
+            }
+
+            return true;
+
+        } catch (PDOException $e) {
+            return $e;
+        }
+    }
 
     public function getEmployee($limit, $offset) {
         try {
             $sql = "
                 SELECT 
-                    b.company_name, a.first_name, a.last_name, a.employee_id, a.email_address, a.designation, a.date_created, a.is_deleted, a.created_user_id
+                    b.company_name, b.company_id, a.first_name, a.last_name, a.employee_id, a.email_address, a.designation, a.date_created, a.is_deleted, a.created_user_id
                 FROM
                     s_employee AS a
                 INNER JOIN
@@ -69,6 +100,32 @@ class Employee
             } else {
               return false;
             }
+        } catch (PDOException $e) {
+            return $e;
+        }
+    }
+
+    public function deleteEmployee($userId, $deletedEmployeeId) {
+        try {
+            $sql = "
+                    UPDATE
+                        s_employee
+                    SET
+                        `is_deleted` = 1,
+                        `updated_user_id` = '$userId',
+                        `date_updated` = NOW()
+                    WHERE
+                        `employee_id` = '$deletedEmployeeId'
+                ";
+
+            $statement = $this->db->prepare($sql);
+
+            if (!$statement->execute()) {
+                return false;
+            }
+
+            return true;
+
         } catch (PDOException $e) {
             return $e;
         }

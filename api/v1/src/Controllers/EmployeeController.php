@@ -83,6 +83,54 @@ class EmployeeController
         return $response->withStatus(200)->withJson($output);
     }
 
+    public function updateEmployee($request, $response, $args) {
+
+        $currentUserId = (!empty($args['user_id'])) ? $args['user_id'] : null;
+        $updateEmployeeId = (!empty($args['update_employee_id'])) ? $args['update_employee_id'] : null;
+
+        $data = $request->getParam("data");
+        $data = (!empty($data)) ? json_decode($data) : null;
+
+        if (empty($data) || empty($currentUserId) || empty($updateEmployeeId)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false
+            ));
+        }
+
+        $firstName       = (!empty($data->firstName)) ? $data->firstName : null;
+        $lastName        = (!empty($data->lastName)) ? $data->lastName : null;
+        $email           = (!empty($data->email)) ? $data->email : null;
+        $designation     = (!empty($data->designation)) ? $data->designation : null;
+        $companyId       = (!empty($data->company)) ? $data->company : null;
+        $isActive        = (!empty($data->isActive)) ? $data->isActive : null;
+
+        if (v::nullType()->validate($firstName) || v::nullType()->validate($lastName) 
+        || v::nullType()->validate($designation) || v::nullType()->validate($companyId) || v::nullType()->validate($email) || !v::email()->validate($email)) {
+
+            return $response->withStatus(200)->withJson(array(
+            'success' => false,
+            'valid'   => false
+            ));
+        }
+
+        $result = $this->employee->updateEmployee($updateEmployeeId, $firstName, $lastName , $email, 
+        $designation, $companyId, $isActive, $currentUserId);
+
+        if (empty($result)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false,
+                'error' => 'Employee Updating'
+            ));
+        }
+  
+        $output = array(
+            'success' => true,
+            'data'    => $result,
+        );
+
+        return $response->withStatus(200)->withJson($output);
+    }
+
     public function getEmployee($request, $response, $args)
     {   
         $currentUserId  = $args['user_id'];
@@ -114,6 +162,33 @@ class EmployeeController
             ));
         }
   
+        $output = array(
+            'success' => true,
+            'data'    => $result,
+        );
+
+        return $response->withStatus(200)->withJson($output);
+    }
+
+    public function deleteEmployee($request, $response, $args)
+    {   
+        $userId     = (!empty($args['user_id'])) ? $args['user_id'] : null;
+        $deletedEmployeeId = (!empty($args['delete_employee_id'])) ? $args['delete_employee_id'] : null;
+
+        if (empty($userId) || empty($deletedEmployeeId)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false,
+            ));
+        }
+
+        $result = $this->employee->deleteEmployee($userId, $deletedEmployeeId);
+
+        if (empty($result)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false,
+            ));
+        }
+
         $output = array(
             'success' => true,
             'data'    => $result,

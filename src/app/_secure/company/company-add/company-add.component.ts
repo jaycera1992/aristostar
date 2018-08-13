@@ -5,6 +5,7 @@ import { Company } from './../../../_class/company';
 import { CompanyService } from './../../../_service/company.service';
 
 @Component({
+  moduleId: module.id,
   selector: 'app-company-add',
   templateUrl: './company-add.component.html',
   styleUrls: ['./company-add.component.css']
@@ -36,7 +37,8 @@ export class CompanyAddComponent implements OnInit {
       shortName: '',
       companyAddress: '',
       landline: '',
-      website: ''
+      website: '',
+      isActive: ''
     };
   }
 

@@ -52,6 +52,16 @@
               <div class="form-group">
                   <input placeholder="Position" class="form-control" required name="designation" #designation="ngModel" [ngModel]="user.designation">
               </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-xs-9">
+                          <input placeholder="Position" class="form-control" required name="designation" #designation="ngModel" [ngModel]="user.designation">
+                      </div>
+                      <div class="col-xs-3">
+                          <mat-checkbox [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" color="warn" (click)="changeStatus()">{{ isActive }}</mat-checkbox>
+                      </div>
+                  </div>
+              </div>
           </div>
           <!-- /.box-body -->
 

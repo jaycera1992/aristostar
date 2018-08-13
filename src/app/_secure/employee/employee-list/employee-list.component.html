@@ -20,6 +20,7 @@
           <tr>
               <th>ID</th>
               <th>NAME</th>
+              <th>COMPANY</th>
               <th>EMAIL</th>
               <th>ROLE</th>
               <th>STATUS</th>
@@ -36,6 +37,9 @@
                   {{ employee.first_name }}  {{ employee.last_name }}
               </td>
               <td>
+                  {{ employee.company_name }}
+              </td>
+              <td>
                   {{ employee.email_address }}
               </td>
               <td>
@@ -46,29 +50,29 @@
               <td>
                   <b>{{ employee.date_created }}</b>
               </td>
-              <td *ngIf="employee.is_deleted == 0 && switchCase==1"><button rel="tooltip" title="Edit Employee" class="btn btn-warning btn-flat btn-sm" (click)="editUser(user, i)"><i class="fa fa-pencil"></i></button>
-                  <a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" rel="tooltip" title="Remove" href="#myModal_{{i}}" (click)="setDeleteStaff(user.user_id)"><i class="fa fa-trash"></i></a>
+              <td *ngIf="employee.is_deleted == 0 && switchCase==1"><button rel="tooltip" title="Edit Employee" class="btn btn-warning btn-flat btn-sm" (click)="editEmployee(employee, i)"><i class="fa fa-pencil"></i></button>
+                  <a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" rel="tooltip" title="Remove" href="#myModal_{{i}}" (click)="setDeletedCompany(employee.employee_id)"><i class="fa fa-trash"></i></a>
               </td>
-              <td *ngIf="employee.is_deleted == 1 && switchCase==1"><button rel="tooltip" title="Edit Employee" class="btn btn-warning btn-flat btn-sm" (click)="editUser(user, i)"><i class="fa fa-pencil"></i></button>
+              <td *ngIf="employee.is_deleted == 1 && switchCase==1"><button rel="tooltip" title="Edit Employee" class="btn btn-warning btn-flat btn-sm" (click)="editEmployee(employee, i)"><i class="fa fa-pencil"></i></button>
                   <button class="btn btn-danger btn-flat btn-sm" rel="tooltip" title="Remove" disabled><i class="fa fa-trash"></i></button>
               </td>
               <div class="modal fade" id="myModal_{{i}}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                   <div class="modal-dialog">
                       <div class="modal-content">
                           <div class="modal-header text-center">
-                              <h4 class="modal-title">Inactive Staff</h4>
+                              <h4 class="modal-title">Inactive Employee</h4>
                           </div>
                           <div class="modal-body">
                               <app-http-error *ngIf="hideHttpServerError"></app-http-error>
                               <div class="alert alert-success" *ngIf="successMessage">
                                   Successfully set to inactive.
                               </div>
-                              <span *ngIf="!successMessage"> Are you sure you want to delete this staff.</span>
+                              <span *ngIf="!successMessage"> Are you sure you want to delete this employee.</span>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-default" *ngIf="!loadingDelete && successMessage" data-dismiss="modal" (click)="callEvent()">Close</button>
                               <button type="button" class="btn btn-default" *ngIf="!loadingDelete && !successMessage" data-dismiss="modal" [disabled]="loadingDelete">Close</button>
-                              <button type="button" class="btn btn-danger" *ngIf="!loadingDelete && !successMessage" (click)="deleteStaff()">Delete</button>
+                              <button type="button" class="btn btn-danger" *ngIf="!loadingDelete && !successMessage" (click)="deleteEmployee()">Delete</button>
                               <button type="button" class="btn btn-danger" *ngIf="loadingDelete && !successMessage" [disabled]="loadingDelete"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i> Deleting </button>
                           </div>
                       </div>

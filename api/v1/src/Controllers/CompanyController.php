@@ -178,6 +178,7 @@ class CompanyController
         $companyAddress = (!empty($data->companyAddress)) ? $data->companyAddress : null;
         $landline       = (!empty($data->landline)) ? $data->landline : null;
         $website        = (!empty($data->website)) ? $data->website : null;
+        $isActive       = (!empty($data->isActive)) ? $data->isActive : null;
 
         if (v::nullType()->validate($companyName) || v::nullType()->validate($shortName) || v::nullType()->validate($companyAddress) || v::nullType()->validate($landline) || v::nullType()->validate($website)) {
 
@@ -190,7 +191,7 @@ class CompanyController
         $landline = '+971' . $landline;
 
         $result = $this->company->updateCompany($updateCompanyId, $companyName, $shortName , $companyAddress, 
-            $landline, $website, $currentUserId);
+            $landline, $website, $isActive, $currentUserId);
 
         if (empty($result)) {
             return $response->withStatus(200)->withJson(array(

@@ -1,0 +1,77 @@
+
+
+<div class="row" *ngIf="successMessage">
+    <div class="col-md-4">
+        <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Successfully update employee, Redirecting to Employee list.
+            </div>
+        <div class="clearfix"></div>
+    </div>
+  </div>
+  
+  <div class="row" *ngIf="errorMessage">
+      <div class="col-md-4">
+          <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  Please verify the data that you input before saving
+              </div>
+          <div class="clearfix"></div>
+      </div>
+    </div>
+  
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-4">
+        <app-http-error *ngIf="hideHttpServerError"></app-http-error>
+        <!-- general form elements -->
+        <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Add Employee</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" #f="ngForm" novalidate (ngSubmit)="submitEmployee(f.value)">
+            <div class="box-body">
+                <div class="form-group">
+                    <input class="form-control" placeholder="First Name" required name="firstName" #firstName="ngModel" [ngModel]="employee.firstName">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Last Name" required name="lastName" #lastName="ngModel" [ngModel]="employee.lastName">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Email" required name="email" #email="ngModel" [ngModel]="employee.email">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" placeholder="Company" required name="company" #company="ngModel" [ngModel]="employee.company">
+                            <option selected value="" disabled>Company</option>
+                        <option *ngFor="let company of companyReference" value="{{company.value}}">{{company.label}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <input placeholder="Position" class="form-control" required name="designation" #designation="ngModel" [ngModel]="employee.designation">
+                        </div>
+                        <div class="col-xs-3">
+                            <mat-checkbox [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" color="warn" (click)="changeStatus()">{{ isActive }}</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+  
+            <div class="box-footer">
+                <button class="btn btn-flat btn-danger pull-left" *ngIf="!loadingSave" type="submit" (click)="cancelUpdateEmployee()"><strong>Cancel</strong></button>
+                <button class="btn btn-flat btn-success pull-right" *ngIf="!loadingSave" [disabled]="f.invalid" type="submit"><strong>Submit</strong></button>
+                <button class="btn btn-flat btn-success pull-right" *ngIf="loadingSave" [disabled]="loadingSave" type="submit"><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i> Saving</button>
+            </div>
+        </form>
+        </div>
+        <!-- /.box -->
+    </div>
+    <div class="col-md-8">
+        <app-employee-list [switchCase]="2" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" (showEditForm)="fromEmit($event)"></app-employee-list>
+    </div>
+    <!--/.col (left) -->
+  </div>

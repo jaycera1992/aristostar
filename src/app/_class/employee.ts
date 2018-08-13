@@ -4,4 +4,5 @@ export class Employee {
     email: string;
     company: string;
     designation: any;
+    isActive: any;
 }

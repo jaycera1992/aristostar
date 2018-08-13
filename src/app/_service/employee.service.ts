@@ -39,4 +39,22 @@ export class EmployeeService {
       .map((response: Response) => response.json());
   }
 
+  updateEmployee(data: any, updateId: any) {
+    let params = 'data=' + encodeURIComponent(JSON.stringify(data));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('Authorization', localStorage.getItem('token'));
+
+    return this._http.put(this._url + '/' + localStorage.getItem('user_id') + '/employee/' + updateId, params, { headers: headers })
+      .map((response: Response) => response.json());
+  }
+
+  deleteEmployee(id: number) {
+    const headers = new Headers();
+    headers.append('Authorization', localStorage.getItem('token'));
+
+    return this._http.delete(this._url + '/' + localStorage.getItem('user_id') + '/employee/' + id, { headers: headers })
+      .map((response: Response) => response.json());
+  }
+
 }

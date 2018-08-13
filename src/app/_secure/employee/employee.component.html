@@ -1,4 +1,5 @@
 <span [ngSwitch]="crudTransaction" class="user-switch-custom">
     <app-employee-list *ngSwitchCase="1" [switchCase]="1" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" (showEditForm)="fromEmit($event)"></app-employee-list>
     <app-employee-add *ngSwitchCase="2" [switchCase]="2" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" (showEditForm)="fromEmit($event)"></app-employee-add>
-</span>
+    <app-employee-update *ngSwitchCase="3" [switchCase]="3" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" [selectedItem]="selectedItem" [selectedIndex]="selectedIndex" (showEditForm)="fromEmit($event)"></app-employee-update>
+  </span>

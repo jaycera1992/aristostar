@@ -4,4 +4,5 @@ export class Company {
     companyAddress: string;
     landline: string;
     website: string;
+    isActive: any;
 }

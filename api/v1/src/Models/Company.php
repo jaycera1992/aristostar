@@ -41,7 +41,7 @@ class Company
         }
     }
 
-    public function updateCompany($companyId, $companyName, $shortName , $companyAddress, $landline, $website, $updatedUserId) {
+    public function updateCompany($companyId, $companyName, $shortName , $companyAddress, $landline, $website, $isActive, $updatedUserId) {
         try {
             $sql = "
                     UPDATE
@@ -52,6 +52,7 @@ class Company
                         `phone` = '$landline',
                         `company_address` = '$companyAddress',
                         `website` = '$website',
+                        `is_deleted` = '$isActive',
                         `updated_user_id` = '$updatedUserId',
                         `date_updated` = NOW()
                     WHERE

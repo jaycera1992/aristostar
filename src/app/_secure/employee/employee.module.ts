@@ -10,6 +10,7 @@ import { EmployeeAddComponent } from './employee-add/employee-add.component';
 
 import { EmployeeService } from './../../_service/employee.service';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 
 const routes: Routes = [
   { path: '', component: EmployeeComponent }
@@ -26,7 +27,8 @@ const routes: Routes = [
   declarations: [
     EmployeeComponent,
     EmployeeAddComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    EmployeeUpdateComponent
   ],
   exports: [
     EmployeeComponent
