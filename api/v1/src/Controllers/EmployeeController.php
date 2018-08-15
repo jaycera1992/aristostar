@@ -134,6 +134,9 @@ class EmployeeController
     public function getEmployee($request, $response, $args)
     {   
         $currentUserId  = $args['user_id'];
+        $companyId  = $args['company_id'];
+        $searchItem = (empty($args['searchItem'])) ? '' : $args['searchItem'];
+        
         $offset         = ($args['offset'] == 1) ? 0 : $args['offset'] * 10;
         $limit  = 10;
 
@@ -146,20 +149,19 @@ class EmployeeController
             $offset -= 10;
         }
 
-        $result = $this->employee->getEmployee($limit, $offset);
+        $result = $this->employee->getEmployee($companyId, $searchItem, $limit, $offset);
+
+        if (empty($result)) {
+            return $response->withStatus(200)->withJson(array(
+                'success' => false,
+            ));
+        }
 
         foreach ($result as $key => $value) {
             if ($result[$key]['date_created']) {
                 $old_date_timestamp           = strtotime($value['date_created']);
                 $result[$key]['date_created'] = date('F d Y', $old_date_timestamp); 
             }
-        }
-
-        
-        if (empty($result)) {
-            return $response->withStatus(200)->withJson(array(
-                'success' => false,
-            ));
         }
   
         $output = array(

@@ -1,5 +1,19 @@
+<div class="col-sm-12">
+    <app-http-error *ngIf="hideHttpServerError"></app-http-error>
+</div>
+
+<div class="row text-center" *ngIf="noDataFound">
+    <div class="col-sm-12">
+        <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                No result found!
+            </div>
+        <div class="clearfix"></div>
+    </div>
+  </div>
+
 <span [ngSwitch]="crudTransaction" class="user-switch-custom">
     <app-employee-list *ngSwitchCase="1" [switchCase]="1" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" (showEditForm)="fromEmit($event)"></app-employee-list>
-    <app-employee-add *ngSwitchCase="2" [switchCase]="2" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" (showEditForm)="fromEmit($event)"></app-employee-add>
-    <app-employee-update *ngSwitchCase="3" [switchCase]="3" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" [selectedItem]="selectedItem" [selectedIndex]="selectedIndex" (showEditForm)="fromEmit($event)"></app-employee-update>
+    <app-employee-add *ngSwitchCase="2" [companyId]="companyId" [switchCase]="2" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" (showEditForm)="fromEmit($event)"></app-employee-add>
+    <app-employee-update *ngSwitchCase="3" [companyId]="companyId" [switchCase]="3" [employeeArr]="employeeArr" [p]="p" [total]="total" [totalEmployee]="totalEmployee" [selectedItem]="selectedItem" [selectedIndex]="selectedIndex" (showEditForm)="fromEmit($event)"></app-employee-update>
   </span>

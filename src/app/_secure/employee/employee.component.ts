@@ -11,6 +11,8 @@ import { EmployeeService } from './../../_service/employee.service';
 })
 export class EmployeeComponent implements OnInit {
 
+  @Input() companyId: any;
+  
   crudTransaction: number;
 
   p = 1;
@@ -24,6 +26,7 @@ export class EmployeeComponent implements OnInit {
   employeeArr = [];
 
   hideHttpServerError = false;
+  noDataFound = false;
 
   constructor(
     private _router: Router,
@@ -32,14 +35,18 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.crudTransaction = 1;
-    this.getEmployee(this.p);
+
+    this.getEmployee(this.p, this.companyId, '');
   }
 
-  getEmployee(page) {
-    this._employeeService.getEmployee(page).subscribe(
+  getEmployee(page, companyId, searchItem) {
+    this._employeeService.getEmployee(page, companyId, searchItem).subscribe(
       response => {
         if (response.success === true) {
+          this.noDataFound = false;
           this.employeeArr = response.data;
+        } else {
+          this.noDataFound = true;
         }
       },
       error => {
@@ -73,7 +80,9 @@ export class EmployeeComponent implements OnInit {
       this.crudTransaction = 1;
       this.p = 1;
       this.total = 0;
-      this.getEmployee(this.p);
+      this.getEmployee(this.p, this.companyId, '');
+    } else if (trigger == 5) {
+      this.getEmployee(this.p, this.companyId, event.searchItem);
     }
   }
 

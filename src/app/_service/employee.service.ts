@@ -21,12 +21,16 @@ export class EmployeeService {
       .map((response: Response) => response.json());
   }
 
-  getEmployee(offset) {
+  getEmployee(offset, companyId, searchItem) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('Authorization', localStorage.getItem('token'));
+    let item = '';
+    if(searchItem != "" && typeof searchItem != 'undefined') {
+      item = '/' + searchItem;
+    }
 
-    return this._http.get(this._url + '/' + localStorage.getItem('user_id') + '/employee/' + offset, { headers: headers })
+    return this._http.get(this._url + '/' + localStorage.getItem('user_id') + '/employee/' + offset + '/' + companyId + item, { headers: headers })
       .map((response: Response) => response.json());
   }
 

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedComponentModule } from './../../_module/shared-component/shared-component.module';
 import { CalendarModule } from 'primeng/calendar';
 
+import { EmployeeModule } from './../employee/employee.module';
 import { CompanyComponent } from './company.component';
 import { CompanyAddComponent } from './company-add/company-add.component';
 import { CompanyListComponent } from './company-list/company-list.component';
@@ -24,8 +25,9 @@ const routes: Routes = [
     FormsModule,
     CalendarModule,
     RouterModule.forChild(routes),
-
-    SharedComponentModule
+    
+    SharedComponentModule,
+    EmployeeModule
   ],
   declarations: [
     CompanyComponent,

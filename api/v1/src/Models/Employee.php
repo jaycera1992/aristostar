@@ -71,7 +71,11 @@ class Employee
         }
     }
 
-    public function getEmployee($limit, $offset) {
+    public function getEmployee($companyId, $searchItem, $limit, $offset) {
+        $searchClause = '';
+        if($searchItem != null || $searchItem != "") {
+            $searchClause = "AND (a.first_name LIKE '%{$searchItem}%' || a.last_name LIKE '%{$searchItem}%')";
+        }
         try {
             $sql = "
                 SELECT 
@@ -82,6 +86,9 @@ class Employee
                     s_company AS b
                 ON
                     a.company_id = b.company_id
+                WHERE
+                    a.company_id = '$companyId'
+                    {$searchClause}
                 ORDER BY
                     a.date_created DESC
                 LIMIT

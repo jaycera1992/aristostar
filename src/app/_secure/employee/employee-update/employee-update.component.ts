@@ -18,6 +18,7 @@ export class EmployeeUpdateComponent implements OnInit {
 
   @Output() showEditForm = new EventEmitter<any>();
 
+  @Input() companyId : any;
   @Input() selectedItem : any;
   @Input() selectedIndex: number;
   @Input() employeeArr = [];
@@ -99,6 +100,8 @@ export class EmployeeUpdateComponent implements OnInit {
     } else {
       formData.isActive = 1;
     }
+
+    formData.company = this.companyId;
 
     this._employeeService.updateEmployee(formData, this.selectedItem.employee_id).subscribe(
       response => {

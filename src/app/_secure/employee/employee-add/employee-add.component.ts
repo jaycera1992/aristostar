@@ -19,6 +19,7 @@ export class EmployeeAddComponent implements OnInit {
 
   @Output() showEditForm = new EventEmitter<any>();
 
+  @Input() companyId: any;
   @Input() employeeArr = [];
   @Input() p: number;
   @Input() switchCase: number;
@@ -44,7 +45,7 @@ export class EmployeeAddComponent implements OnInit {
       lastName: '',
       email: '',
       designation: '',
-      company: '',
+      company: this.companyId,
       isActive: ''
     };
   }
@@ -61,7 +62,7 @@ export class EmployeeAddComponent implements OnInit {
 
   submitEmployee(formData: Employee) {
     this.loadingSave = true;
-
+    formData.company = this.companyId;
     this._employeeService.addEmployee(formData).subscribe(
       response => {
         if (response.success === true) {
@@ -101,7 +102,6 @@ export class EmployeeAddComponent implements OnInit {
               { value: element.company_id, label: element.company_name }
             );
           }
-          console.log(this.companyReference);
         }
       },
       error => {

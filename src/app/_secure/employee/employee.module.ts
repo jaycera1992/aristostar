@@ -12,15 +12,15 @@ import { EmployeeService } from './../../_service/employee.service';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeUpdateComponent } from './employee-update/employee-update.component';
 
-const routes: Routes = [
-  { path: '', component: EmployeeComponent }
-];
+// const routes: Routes = [
+//   { path: '', component: EmployeeComponent }
+// ];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes),
+    // RouterModule.forChild(routes),
 
     SharedComponentModule
   ],

@@ -5,15 +5,6 @@
       <div class="box-header">
           <h3 class="box-title" *ngIf="switchCase!=1">Company Details</h3>
           <button class="btn btn-flat btn-success btn-sm" (click)="addCompany()" *ngIf="switchCase==1"><i class="fa fa-plus" aria-hidden="true"></i> Add Company</button>
-          <div class="box-tools" *ngIf="switchCase==1">
-              <div class="input-group input-group-sm" style="width: 150px;">
-              <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-              <div class="input-group-btn">
-                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-              </div>
-              </div>
-          </div>
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
@@ -51,12 +42,36 @@
               <td>
                   <b>{{ company.date_created }}</b>
               </td>
-              <td *ngIf="company.is_deleted == 0 && switchCase==1"><button rel="tooltip" title="Edit Company" class="btn btn-warning btn-flat btn-sm" (click)="editCompany(company, i)"><i class="fa fa-pencil"></i></button>
-                  <a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" rel="tooltip" title="Remove" href="#myModal_{{i}}" (click)="setDeletedCompany(company.company_id)"><i class="fa fa-trash"></i></a>
+              <td *ngIf="company.is_deleted == 0 && switchCase==1" class="text-center">
+                    <a class="btn btn-info btn-flat btn-sm" data-toggle="modal" rel="tooltip" title="Info" href="#myModal_info{{i}}" (click)="setCompany(company)"><i class="fa fa-bars"></i></a>
+                    <button rel="tooltip" title="Edit Company" class="btn btn-warning btn-flat btn-sm" (click)="editCompany(company, i)"><i class="fa fa-pencil"></i></button>
+                  <a class="btn btn-danger btn-flat btn-sm" data-toggle="modal" rel="tooltip" data-dismiss="modal" title="Remove" href="#myModal_{{i}}" (click)="setDeletedCompany(company.company_id)"><i class="fa fa-trash"></i></a>
               </td>
-              <td *ngIf="company.is_deleted == 1 && switchCase==1"><button rel="tooltip" title="Edit Company" class="btn btn-warning btn-flat btn-sm" (click)="editCompany(company, i)"><i class="fa fa-pencil"></i></button>
+              <td *ngIf="company.is_deleted == 1 && switchCase==1" class="text-center">
+                    <a class="btn btn-info btn-flat btn-sm" data-toggle="modal" rel="tooltip" title="Info" href="#myModal_info{{i}}" (click)="setCompany(company)"><i class="fa fa-bars"></i></a>
+                    <button rel="tooltip" title="Edit Company" class="btn btn-warning btn-flat btn-sm" (click)="editCompany(company, i)"><i class="fa fa-pencil"></i></button>
                   <button class="btn btn-danger btn-flat btn-sm" rel="tooltip" title="Remove" disabled><i class="fa fa-trash"></i></button>
               </td>
+              <div class="modal fade" id="myModal_info{{i}}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                               
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title">Employee List</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12" *ngIf="companyId != null">
+                                        <app-employee [companyId]="companyId"></app-employee>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeCompany()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               <div class="modal fade" id="myModal_{{i}}" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                   <div class="modal-dialog">
                       <div class="modal-content">

@@ -24,6 +24,8 @@ export class CompanyListComponent implements OnInit {
   hideHttpServerError = false;
   successMessage = false;
 
+  companyId: any;
+
   constructor(
     private _router: Router,
     private _companyService: CompanyService,
@@ -42,6 +44,12 @@ export class CompanyListComponent implements OnInit {
 
   editCompany(data: any, index: any) {
     this.showEditForm.emit({ 'trigger': 3, 'selectedItem': data, 'selectedIndex': index});
+  }
+
+  setCompany(data: any) {
+
+    this.companyId = data.company_id;
+
   }
 
   deleteCompany() {
@@ -80,6 +88,10 @@ export class CompanyListComponent implements OnInit {
       this.successMessage = false;
       this.loadingDelete = false;
     }, 3000);
+  }
+
+  closeCompany() {
+    this.companyId = null;
   }
 
 }

@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
 
   usersNav = false;
   companyNav = false;
-  employeeNav = false;
 
   titleHeader: any;
 
@@ -38,9 +37,6 @@ export class DashboardComponent implements OnInit {
     } else if (urlLink[5] == 'company') {
       this.titleHeader = 'Company Management';
       this.companyNav = true;
-    }  else if (urlLink[5] == 'employee') {
-      this.titleHeader = 'Employee Management';
-      this.employeeNav = true;
     }
 
     this.userDetails = JSON.parse(localStorage.getItem('user_details'));
@@ -59,18 +55,11 @@ export class DashboardComponent implements OnInit {
     if (nav == 'users') {
       this.usersNav = true;
       this.companyNav = false;
-      this.employeeNav = false;
       this.titleHeader = 'User Management';
     } else if (nav == 'company') {
       this.usersNav = false;
       this.companyNav = true;
-      this.employeeNav = false;
       this.titleHeader = 'Company Management';
-    } else if (nav == 'employee') {
-      this.usersNav = false;
-      this.companyNav = false;
-      this.employeeNav = true;
-      this.titleHeader = 'Employee Management';
     }
   }
 }

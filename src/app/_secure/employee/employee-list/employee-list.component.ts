@@ -26,6 +26,8 @@ export class EmployeeListComponent implements OnInit {
   hideHttpServerError = false;
   successMessage = false;
 
+  searchData: any;
+
   constructor(
     private _router: Router,
     private _employeeService: EmployeeService,
@@ -83,5 +85,9 @@ export class EmployeeListComponent implements OnInit {
       this.loadingDelete = false;
     }, 3000);
   }
+
+  triggerSearch() {
+    this.showEditForm.emit({ 'trigger': 5, 'searchItem': this.searchData});
+  } 
 
 }
